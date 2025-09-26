@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Registration Form</title>
+<style>
+  /* Background gradient animation */
+  body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    background: linear-gradient(-45deg, #6a11cb, #2575fc, #ff416c, #ff4b2b);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+  }
+  @keyframes gradientBG {
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
+  }
+
+  /* Container */
+  .contact-container {
+    max-width: 720px;
+    margin: 50px auto;
+    background:#fff;
+    padding:50px 40px;
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Heading */
+  .contact-container h2 {
+    text-align:center;
+    margin-bottom:40px;
+    color:#2575fc;
+    font-size:2.5em;
+    animation: fadeInDown 1s ease forwards;
+    opacity:0;
+  }
+
+  @keyframes fadeInDown {
+    to {opacity:1; transform: translateY(0);}
+    from {opacity:0; transform: translateY(-20px);}
+  }
+
+  /* Form groups */
+  .contact-form .form-group {
+    position: relative;
+    margin-bottom:25px;
+  }
+
+  .contact-form label {
+    font-weight:600;
+    display:block;
+    margin-bottom:5px;
+    color:#333;
+  }
+
+  /* Input styles with animation */
+  .contact-form input, 
+  .contact-form select, 
+  .contact-form textarea {
+    width:100%;
+    padding:14px 18px;
+    border:2px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+    transition: 0.3s;
+  }
+  .contact-form input:focus, 
+  .contact-form select:focus, 
+  .contact-form textarea:focus {
+    border-color:#2575fc;
+    box-shadow:0 0 12px rgba(37,117,252,0.4);
+    outline:none;
+  }
+
+  /* Inline checkboxes/radios */
+  .form-inline { display:flex; gap:25px; align-items:center; flex-wrap:wrap; }
+  .form-inline input { margin-right:5px; cursor:pointer; }
+  .form-inline label { margin:0; cursor:pointer; }
+
+  /* Buttons with gradient hover */
+  .form-buttons { display:flex; gap:15px; margin-top:20px; flex-wrap:wrap; }
+  .btn-submit {
+    background: linear-gradient(45deg,#2575fc,#6a11cb);
+    color:#fff;
+    padding:14px 30px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:600;
+    font-size:16px;
+    transition:0.4s;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  }
+  .btn-submit:hover {
+    background: linear-gradient(45deg,#6a11cb,#2575fc);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+  .btn-reset {
+    background:#6c757d; color:#fff; padding:14px 30px; border:none; border-radius:12px; cursor:pointer; font-weight:600; transition:0.3s;
+  }
+  .btn-reset:hover { background:#5a6268; transform: translateY(-2px);}
+  .btn-cancel {
+    background:#dc3545; color:#fff; padding:14px 30px; border:none; border-radius:12px; cursor:pointer; font-weight:600; transition:0.3s;
+  }
+  .btn-cancel:hover { background:#b52a2a; transform: translateY(-2px); }
+
+  @media(max-width:500px){ 
+    .form-inline { flex-direction: column; } 
+    .form-buttons { flex-direction: column; } 
+  }
+
+  /* Floating label effect */
+  .contact-form input:focus + label,
+  .contact-form textarea:focus + label {
+    top:-10px;
+    left:10px;
+    font-size:13px;
+    color:#2575fc;
+    background:#fff;
+    padding:0 5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="contact-container">
+  <h2>Client Registration Form</h2>
+  <form id="clientForm" class="contact-form" enctype="multipart/form-data" method="POST" action="contact_submit.php">
+    
+    <div class="form-group">
+      <label>Name</label>
+      <input type="text" name="name" required placeholder="Enter your name">
+    </div>
+
+    <div class="form-group">
+      <label>Father's Name</label>
+      <input type="text" name="father" required placeholder="Enter father's name">
+    </div>
+
+    <div class="form-group">
+      <label>DOB</label>
+      <input type="date" name="dob" required>
+    </div>
+
+    <div class="form-group">
+      <label>Gender</label>
+      <div class="form-inline">
+        <input type="radio" name="gender" value="Male" required id="genderMale"><label for="genderMale">Male</label>
+        <input type="radio" name="gender" value="Female" id="genderFemale"><label for="genderFemale">Female</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Marital Status</label>
+      <div class="form-inline">
+        <input type="radio" name="marital" value="Yes" id="marriedYes"><label for="marriedYes">Yes</label>
+        <input type="radio" name="marital" value="No" id="marriedNo"><label for="marriedNo">No</label>
+      </div>
+    </div>
+
+    <div class="form-group" id="partnerDiv" style="display:none;">
+      <label id="partnerLabel">Partner Name</label>
+      <input type="text" name="partner" placeholder="Enter Partner Name">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" name="email" placeholder="Enter email (optional)">
+    </div>
+
+    <div class="form-group">
+      <label>Phone No.</label>
+      <input type="text" name="phone" required placeholder="Enter 10 digit phone number">
+    </div>
+
+    <div class="form-group">
+      <label>State</label>
+      <select name="state" id="state" required>
+        <option value="">Select State</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Uttar Pradesh">Uttar Pradesh</option>
+        <option value="Maharashtra">Maharashtra</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>District</label>
+      <select name="district" id="district" required>
+        <option value="">Select District</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Upload File</label>
+      <input type="file" name="upload_file" accept=".pdf,.jpg,.jpeg,.png" required>
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit" class="btn-submit">Submit</button>
+      <button type="reset" class="btn-reset">Reset</button>
+      <button type="button" class="btn-cancel" onclick="window.location='/'">Cancel</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+  // Partner visibility & label
+  const marriedYes = document.getElementById('marriedYes');
+  const marriedNo = document.getElementById('marriedNo');
+  const partnerDiv = document.getElementById('partnerDiv');
+  const partnerLabel = document.getElementById('partnerLabel');
+  const genderRadios = document.querySelectorAll('input[name="gender"]');
+
+  function updatePartner() {
+    const gender = document.querySelector('input[name="gender"]:checked');
+    const maritalYes = marriedYes.checked;
+    if(maritalYes){
+        partnerDiv.style.display = 'block';
+        partnerLabel.textContent = gender ? (gender.value === 'Male' ? "Wife Name" : "Husband Name") : "Partner Name";
+    } else {
+        partnerDiv.style.display = 'none';
+    }
+  }
+
+  marriedYes.addEventListener('change', updatePartner);
+  marriedNo.addEventListener('change', updatePartner);
+  genderRadios.forEach(r => r.addEventListener('change', updatePartner));
+
+  // State → District
+  const stateDistrict = {
+      "Delhi": ["New Delhi", "North Delhi", "South Delhi"],
+      "Uttar Pradesh": ["Lucknow", "Kanpur", "Varanasi"],
+      "Maharashtra": ["Mumbai", "Pune", "Nagpur"]
+  };
+
+  document.getElementById('state').addEventListener('change', function(){
+      const districts = stateDistrict[this.value] || [];
+      const districtSelect = document.getElementById('district');
+      districtSelect.innerHTML = '<option value="">Select District</option>';
+      districts.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.text = d;
+          districtSelect.add(opt);
+      });
+  });
+
+  // Phone validation
+  document.getElementById('clientForm').addEventListener('submit', function(e){
+      const phone = document.querySelector('input[name="phone"]').value;
+      if(!/^\d{10}$/.test(phone)){
+          alert("Phone number must be 10 digits");
+          e.preventDefault();
+      }
+  });
+</script>
+
+</body>
+</html>
